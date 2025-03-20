@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysOfCode - Day 01</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .code-section {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .code-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        code {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+        }
+
+        .result-section {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .result-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        #output {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+
+        .run-button {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .run-button:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7DaysOfCode - Day 01</h1>
+        
+        <div class="code-section">
+            <h2>Código</h2>
+            <pre><code>let numeroUm = 1
+let stringUm = '1'
+let numeroTrinta = 30
+let stringTrinta = '30'
+let numeroDez = 10
+let stringDez = '10'
+
+if (numeroUm == stringUm) {
+  console.log('As variáveis numeroUm e stringUm tem o mesmo valor, mas tipos diferentes')
+} else {
+  console.log('As variáveis numeroUm e stringUm não tem o mesmo valor')
+}
+
+if (numeroTrinta === stringTrinta) {
+  console.log('As variáveis numeroTrinta e stringTrinta tem o mesmo valor e mesmo tipo')
+} else {
+  console.log('As variáveis numeroTrinta e stringTrinta não tem o mesmo tipo')
+}
+
+if (numeroDez == stringDez) {
+  console.log('As variáveis numeroDez e stringDez tem o mesmo valor, mas tipos diferentes')
+} else {
+  console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')
+}</code></pre>
+        </div>
+
+        <div class="result-section">
+            <h2>Resultado</h2>
+            <div id="output"></div>
+            <button class="run-button" onclick="runCode()">Executar Código</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido para o desafio 7DaysOfCode</p>
+    </div>
+
+    <script>
+        function runCode() {
+            const output = document.getElementById('output');
+            output.innerHTML = '';
+
+            // Redireciona o console.log para nossa div
+            const originalConsoleLog = console.log;
+            console.log = function(message) {
+                output.innerHTML += message + '\n';
+                originalConsoleLog.apply(console, arguments);
+            };
+
+            // Executa o código
+            let numeroUm = 1;
+            let stringUm = '1';
+            let numeroTrinta = 30;
+            let stringTrinta = '30';
+            let numeroDez = 10;
+            let stringDez = '10';
+
+            if (numeroUm == stringUm) {
+                console.log('As variáveis numeroUm e stringUm tem o mesmo valor, mas tipos diferentes');
+            } else {
+                console.log('As variáveis numeroUm e stringUm não tem o mesmo valor');
+            }
+
+            if (numeroTrinta === stringTrinta) {
+                console.log('As variáveis numeroTrinta e stringTrinta tem o mesmo valor e mesmo tipo');
+            } else {
+                console.log('As variáveis numeroTrinta e stringTrinta não tem o mesmo tipo');
+            }
+
+            if (numeroDez == stringDez) {
+                console.log('As variáveis numeroDez e stringDez tem o mesmo valor, mas tipos diferentes');
+            } else {
+                console.log('As variáveis numeroDez e stringDez não tem o mesmo valor');
+            }
+
+            // Restaura o console.log original
+            console.log = originalConsoleLog;
+        }
+    </script>
+</body>
+</html> 
