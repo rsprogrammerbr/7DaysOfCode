@@ -125,10 +125,12 @@ Todas as páginas do projeto foram desenvolvidas com design responsivo, adaptand
 ***
 ![image](https://github.com/user-attachments/assets/d1188b1a-f854-4a7b-9242-d61b23526d1e)
 
-
 ## 🔗 Navegação
 
 O projeto conta com um botão flutuante "Home" em todas as páginas de desafio, permitindo fácil retorno à página principal. Além disso, a página principal possui um botão "Voltar ao topo" para melhor experiência de navegação.
+
+## 📱 Fique a vontade para testar o projeto 
+https://7-days-of-code-lemon.vercel.app/
 
 ## 👨‍💻 Autor
 
