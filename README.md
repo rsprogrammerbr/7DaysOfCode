@@ -25,7 +25,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 2: Condicionais
 
-![Preview Dia 2](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day02-preview.png)
+![Preview Dia 2](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview2.jpg)
 
 **Objetivo**: Trabalhar com estruturas condicionais e entrada de dados do usuário.
 
@@ -39,7 +39,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 3: Fluxo de Decisão
 
-![Preview Dia 3](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day03-preview.png)
+![Preview Dia 3](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview3.jpg)
 
 **Objetivo**: Criar um fluxo de decisão mais complexo com múltiplas perguntas.
 
@@ -53,7 +53,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 4: Loops e Randomização
 
-![Preview Dia 4](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day04-preview.png)
+![Preview Dia 4](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview4.jpg)
 
 **Objetivo**: Criar um jogo de adivinhação com números aleatórios.
 
@@ -68,7 +68,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 5: Listas e Arrays
 
-![Preview Dia 5](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day05-preview.png)
+![Preview Dia 5](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview5.jpg)
 
 **Objetivo**: Trabalhar com listas e categorização de dados.
 
@@ -82,7 +82,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 6: Remoção de Itens
 
-![Preview Dia 6](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day06-preview.png)
+![Preview Dia 6](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview6.jpg)
 
 **Objetivo**: Expandir a funcionalidade da lista de compras com remoção de itens.
 
@@ -97,7 +97,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 7: Funções em JavaScript
 
-![Preview Dia 7](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day07-preview.png)
+![Preview Dia 7](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview7.jpg)
 
 **Objetivo**: Criar uma calculadora funcional usando funções JavaScript.
 
