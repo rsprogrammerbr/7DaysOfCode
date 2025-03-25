@@ -1,6 +1,7 @@
 # 7DaysOfCode - Desafio JavaScript
 
-![Banner do Projeto](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/banner.png)
+![image](https://github.com/user-attachments/assets/fbfea6f6-f700-448b-b465-428859e94f67)
+
 
 ## 📋 Sobre o Projeto
 
