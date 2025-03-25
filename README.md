@@ -12,7 +12,7 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 
 ### Dia 1: Variáveis e Operadores
 
-![Preview Dia 1](https://github.com/rsprogrammerbr/7DaysOfCode/raw/main/assets/day01-preview.png)
+![Preview Dia 1](https://github.com/rsprogrammerbr/7DaysOfCode/blob/main/assests/preview1.jpg)
 
 **Objetivo**: Entender a diferença entre `==` e `===` em JavaScript.
 
