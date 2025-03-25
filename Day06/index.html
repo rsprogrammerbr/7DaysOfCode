@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysOfCode - Day 06</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .code-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        pre {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        code {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            white-space: pre;
+            word-break: normal;
+        }
+
+        .app-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .app-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .shopping-app {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-controls {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .control-tab {
+            flex: 1;
+            padding: 0.8rem;
+            text-align: center;
+            background: #1a1a1a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .control-tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        .control-tab.active {
+            background: #00ff88;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00ff88;
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 4px;
+            border: none;
+            background: #333;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .app-button {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .app-button:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
+        }
+
+        .app-button.reset {
+            background: #ff5555;
+        }
+
+        .app-button.reset:hover {
+            background: #ff3333;
+        }
+
+        .shopping-list {
+            background: #1a1a1a;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .shopping-list h3 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .category {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .category:last-child {
+            border-bottom: none;
+        }
+
+        .category-title {
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-items {
+            padding-left: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .item-tag {
+            display: inline-flex;
+            align-items: center;
+            background: #333;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .item-tag .remove-item {
+            margin-left: 0.5rem;
+            background: #ff5555;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .item-tag .remove-item:hover {
+            background: #ff3333;
+            transform: scale(1.1);
+        }
+
+        .empty-list {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 1rem;
+        }
+
+        .status-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            display: block;
+        }
+
+        .status-message.error {
+            background: rgba(255, 85, 85, 0.2);
+            color: #ff5555;
+            display: block;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00ff88;
+            color: #111;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: #00cc6a;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.8rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .code-section, .app-section {
+                padding: 1rem;
+            }
+            
+            pre {
+                font-size: 0.8rem;
+                max-height: 300px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .code-section h2, .app-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            pre {
+                font-size: 0.75rem;
+                padding: 0.8rem;
+                max-height: 250px;
+            }
+            
+            .app-controls {
+                flex-direction: column;
+            }
+            
+            .input-group {
+                width: 100%;
+                margin-bottom: 0.8rem;
+            }
+            
+            .app-button {
+                width: 100%;
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7DaysOfCode - Day 06</h1>
+        
+        <div class="code-section">
+            <h2>Código</h2>
+            <pre><code>let frutas = [];
+let laticinios = [];
+let congelados = [];
+let doces = [];
+let outros = [];
+
+let continuar = true;
+
+while (continuar) {
+    let escolha = prompt("Você deseja adicionar ou remover uma comida da lista de compras? (adicionar/remover/sair)").toLowerCase();
+
+    if (escolha === "adicionar") {
+        let comida = prompt("Qual comida você deseja adicionar?");
+        let categoria = prompt("Em qual categoria essa comida se encaixa? (frutas, laticínios, congelados, doces, outros)").toLowerCase();
+
+        if (categoria === "frutas") {
+            frutas.push(comida);
+        } else if (categoria === "laticínios") {
+            laticinios.push(comida);
+        } else if (categoria === "congelados") {
+            congelados.push(comida);
+        } else if (categoria === "doces") {
+            doces.push(comida);
+        } else {
+            outros.push(comida);
+        }
+    }
+    else if (escolha === "remover") {
+        if (frutas.length === 0 && laticinios.length === 0 && congelados.length === 0 && doces.length === 0 && outros.length === 0) {
+            alert("A lista de compras está vazia. Adicione itens antes de tentar remover.");
+            continue;
+        }
+
+        console.log("Lista de compras atual:");
+        console.log(`Frutas: ${frutas.join(", ")}`);
+        console.log(`Laticínios: ${laticinios.join(", ")}`);
+        console.log(`Congelados: ${congelados.join(", ")}`);
+        console.log(`Doces: ${doces.join(", ")}`);
+        console.log(`Outros: ${outros.join(", ")}`);
+
+        let comidaRemover = prompt("Digite o nome do item que deseja remover:");
+
+        function removerItem(lista, item) {
+            let index = lista.indexOf(item);
+            if (index !== -1) {
+                lista.splice(index, 1);
+                return true;
+            }
+            return false;
+        }
+
+        let removido = removerItem(frutas, comidaRemover) ||
+                       removerItem(laticinios, comidaRemover) ||
+                       removerItem(congelados, comidaRemover) ||
+                       removerItem(doces, comidaRemover) ||
+                       removerItem(outros, comidaRemover);
+
+        if (removido) {
+            alert(`O item '${comidaRemover}' foi removido da lista.`);
+        } else {
+            alert("Não foi possível encontrar o item dentro da lista!");
+        }
+    }
+    else if (escolha === "sair") {
+        continuar = false;
+        alert("Obrigado por usar a lista de compras!");
+    } else {
+        alert("Opção inválida! Escolha entre 'adicionar', 'remover' ou 'sair'.");
+    }
+}</code></pre>
+        </div>
+
+        <div class="app-section">
+            <h2>Lista de Compras Interativa</h2>
+            <div class="shopping-app">
+                <div class="app-controls">
+                    <div class="control-tabs">
+                        <div class="control-tab active" data-tab="add">Adicionar Item</div>
+                        <div class="control-tab" data-tab="remove">Remover Item</div>
+                    </div>
+                    
+                    <div id="add-tab" class="tab-content active">
+                        <div class="input-group">
+                            <label for="food-item">Item para adicionar:</label>
+                            <input type="text" id="food-item" placeholder="Digite o nome do item">
+                        </div>
+                        <div class="input-group">
+                            <label for="category">Categoria:</label>
+                            <select id="category">
+                                <option value="frutas">Frutas</option>
+                                <option value="laticinios">Laticínios</option>
+                                <option value="congelados">Congelados</option>
+                                <option value="doces">Doces</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                        <button id="add-item" class="app-button">Adicionar Item</button>
+                    </div>
+                    
+                    <div id="remove-tab" class="tab-content">
+                        <div class="input-group">
+                            <label for="remove-item">Item para remover:</label>
+                            <input type="text" id="remove-item" placeholder="Digite o nome do item para remover">
+                        </div>
+                        <button id="remove-item-btn" class="app-button">Remover Item</button>
+                    </div>
+                    
+                    <div class="button-group" style="margin-top: 1.5rem;">
+                        <button id="reset-list" class="app-button reset">Limpar Lista</button>
+                    </div>
+                    
+                    <div id="status-message" class="status-message"></div>
+                </div>
+                
+                <div class="shopping-list">
+                    <h3>Sua Lista de Compras</h3>
+                    <div id="list-container">
+                        <div class="empty-list">Sua lista está vazia. Adicione alguns itens!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido para o desafio 7DaysOfCode</p>
+    </div>
+
+    <a href="../index.html" class="home-button">Home</a>
+
+    <script>
+        // Peguei os elementos da página
+        const foodItemInput = document.getElementById('food-item');
+        const categorySelect = document.getElementById('category');
+        const addItemBtn = document.getElementById('add-item');
+        const removeItemInput = document.getElementById('remove-item');
+        const removeItemBtn = document.getElementById('remove-item-btn');
+        const resetListBtn = document.getElementById('reset-list');
+        const listContainer = document.getElementById('list-container');
+        const statusMessage = document.getElementById('status-message');
+        const controlTabs = document.querySelectorAll('.control-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Lista de compras por categoria
+        let shoppingList = {
+            frutas: [],
+            laticinios: [],
+            congelados: [],
+            doces: [],
+            outros: []
+        };
+
+        // Troca entre as abas
+        controlTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Tira o destaque de todas as abas
+                controlTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Destaca a aba clicada
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+                
+                // Limpa mensagens
+                clearStatusMessage();
+            });
+        });
+
+        // Adiciona item na lista
+        function addItem() {
+            const item = foodItemInput.value.trim();
+            const category = categorySelect.value;
+            
+            if (item === '') {
+                showStatusMessage('Por favor, digite o nome do item.', 'error');
+                return;
+            }
+            
+            // Coloca o item na categoria certa
+            shoppingList[category].push(item);
+            
+            // Limpa o campo
+            foodItemInput.value = '';
+            foodItemInput.focus();
+            
+            // Atualiza a lista na tela
+            updateListDisplay();
+            
+            // Avisa que deu certo
+            showStatusMessage(`Item "${item}" adicionado com sucesso à categoria ${getCategoryName(category)}!`, 'success');
+        }
+
+        // Remove item da lista
+        function removeItem() {
+            const item = removeItemInput.value.trim();
+            
+            if (item === '') {
+                showStatusMessage('Por favor, digite o nome do item que deseja remover.', 'error');
+                return;
+            }
+            
+            // Procura o item em todas as categorias
+            let found = false;
+            
+            for (const category in shoppingList) {
+                const index = shoppingList[category].findIndex(i => i.toLowerCase() === item.toLowerCase());
+                
+                if (index !== -1) {
+                    // Guarda o nome exato do item (com maiúsculas/minúsculas originais)
+                    const exactItemName = shoppingList[category][index];
+                    
+                    // Remove o item
+                    shoppingList[category].splice(index, 1);
+                    found = true;
+                    
+                    // Atualiza a lista e mostra mensagem
+                    updateListDisplay();
+                    showStatusMessage(`Item "${exactItemName}" removido com sucesso!`, 'success');
+                    break;
+                }
+            }
+            
+            if (!found) {
+                showStatusMessage(`Item "${item}" não encontrado na lista.`, 'error');
+            }
+            
+            // Limpa o campo
+            removeItemInput.value = '';
+            removeItemInput.focus();
+        }
+
+        // Limpa a lista toda
+        function resetList() {
+            if (confirm('Tem certeza que quer limpar toda a lista?')) {
+                // Zera todas as categorias
+                for (const key in shoppingList) {
+                    shoppingList[key] = [];
+                }
+                
+                // Atualiza a tela e avisa
+                updateListDisplay();
+                showStatusMessage('Lista de compras limpa com sucesso!', 'success');
+            }
+        }
+
+        // Mostra mensagem de status
+        function showStatusMessage(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            
+            // Faz a mensagem sumir depois de um tempo
+            setTimeout(clearStatusMessage, 5000);
+        }
+
+        // Limpa a mensagem de status
+        function clearStatusMessage() {
+            statusMessage.textContent = '';
+            statusMessage.className = 'status-message';
+        }
+
+        // Pega o nome bonito da categoria
+        function getCategoryName(category) {
+            const names = {
+                frutas: 'Frutas',
+                laticinios: 'Laticínios',
+                congelados: 'Congelados',
+                doces: 'Doces',
+                outros: 'Outros'
+            };
+            
+            return names[category] || category;
+        }
+
+        // Atualiza a lista na tela
+        function updateListDisplay() {
+            // Vê se a lista tá vazia
+            const isEmpty = Object.values(shoppingList).every(arr => arr.length === 0);
+            
+            if (isEmpty) {
+                listContainer.innerHTML = '<div class="empty-list">Sua lista está vazia. Adicione alguns itens!</div>';
+                return;
+            }
+            
+            // Limpa tudo antes de mostrar
+            listContainer.innerHTML = '';
+            
+            // Nome bonitinho das categorias
+            const categories = {
+                frutas: 'Frutas',
+                laticinios: 'Laticínios',
+                congelados: 'Congelados',
+                doces: 'Doces',
+                outros: 'Outros'
+            };
+            
+            for (const [key, title] of Object.entries(categories)) {
+                if (shoppingList[key].length > 0) {
+                    // Cria o bloco da categoria
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category';
+                    
+                    // Coloca o título
+                    const categoryTitle = document.createElement('div');
+                    categoryTitle.className = 'category-title';
+                    categoryTitle.textContent = title;
+                    categoryDiv.appendChild(categoryTitle);
+                    
+                    // Lista os itens
+                    const itemsList = document.createElement('ul');
+                    itemsList.className = 'items-list';
+                    
+                    shoppingList[key].forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = item;
+                        itemsList.appendChild(listItem);
+                    });
+                    
+                    categoryDiv.appendChild(itemsList);
+                    listContainer.appendChild(categoryDiv);
+                }
+            }
+        }
+
+        // Eventos dos botões
+        addItemBtn.addEventListener('click', addItem);
+        removeItemBtn.addEventListener('click', removeItem);
+        resetListBtn.addEventListener('click', resetList);
+        
+        foodItemInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addItem();
+            }
+        });
+        
+        removeItemInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                removeItem();
+            }
+        });
+
+        // Mostra a lista vazia no começo
+        updateListDisplay();
+    </script>
+</body>
+</html>

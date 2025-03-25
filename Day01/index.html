@@ -102,6 +102,31 @@
             text-align: center;
             color: #666;
         }
+
+        .home-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00ff88;
+            color: #111;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: #00cc6a;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -147,12 +172,14 @@ if (numeroDez == stringDez) {
         <p>Desenvolvido para o desafio 7DaysOfCode</p>
     </div>
 
+    <a href="../index.html" class="home-button">Home</a>
+
     <script>
         function runCode() {
             const output = document.getElementById('output');
             output.innerHTML = '';
 
-            // Redireciona o console.log para nossa div
+            // Redireciona o console.log para nossa div de saída
             const originalConsoleLog = console.log;
             console.log = function(message) {
                 output.innerHTML += message + '\n';
@@ -190,4 +217,4 @@ if (numeroDez == stringDez) {
         }
     </script>
 </body>
-</html> 
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysOfCode - Day 05</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .code-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        pre {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        code {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            white-space: pre;
+            word-break: normal;
+        }
+
+        .app-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .app-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .shopping-app {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-controls {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00ff88;
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 4px;
+            border: none;
+            background: #333;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .app-button {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .app-button:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
+        }
+
+        .app-button.reset {
+            background: #ff5555;
+        }
+
+        .app-button.reset:hover {
+            background: #ff3333;
+        }
+
+        .shopping-list {
+            background: #1a1a1a;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .shopping-list h3 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .category {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .category:last-child {
+            border-bottom: none;
+        }
+
+        .category-title {
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-items {
+            padding-left: 1rem;
+        }
+
+        .category-items span {
+            display: inline-block;
+            background: #333;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+
+        .empty-list {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 1rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00ff88;
+            color: #111;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: #00cc6a;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.8rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .code-section, .app-section {
+                padding: 1rem;
+            }
+            
+            pre {
+                font-size: 0.8rem;
+                max-height: 300px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .code-section h2, .app-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            pre {
+                font-size: 0.75rem;
+                padding: 0.8rem;
+                max-height: 250px;
+            }
+            
+            .app-controls {
+                flex-direction: column;
+            }
+            
+            .input-group {
+                width: 100%;
+                margin-bottom: 0.8rem;
+            }
+            
+            .app-button {
+                width: 100%;
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7DaysOfCode - Day 05</h1>
+        
+        <div class="code-section">
+            <h2>Código</h2>
+            <pre><code>// Criamos arrays vazios para armazenar os itens de cada categoria
+let frutas = [];
+let laticinios = [];
+let congelados = [];
+let doces = [];
+let outros = [];
+
+// Variável para controlar a repetição do loop
+let adicionarMais = true;
+
+// Iniciamos o loop enquanto o usuário quiser adicionar itens
+while (adicionarMais) {
+    let resposta = prompt("Você deseja adicionar uma comida à sua lista de compras? (sim/não)").toLowerCase();
+    
+    if (resposta === "não") {
+        adicionarMais = false; // Sai do loop
+    } else if (resposta === "sim") {
+        let comida = prompt("Qual comida você deseja adicionar?");
+        let categoria = prompt("Em qual categoria essa comida se encaixa? (frutas, laticínios, congelados, doces, outros)").toLowerCase();
+        
+        // Adiciona o item na categoria correta
+        if (categoria === "frutas") {
+            frutas.push(comida);
+        } else if (categoria === "laticínios") {
+            laticinios.push(comida);
+        } else if (categoria === "congelados") {
+            congelados.push(comida);
+        } else if (categoria === "doces") {
+            doces.push(comida);
+        } else {
+            outros.push(comida);
+        }
+    } else {
+        alert("Resposta inválida! Digite 'sim' ou 'não'.");
+    }
+}
+
+// Exibir a lista de compras formatada
+console.log("Lista de compras:");
+
+if (frutas.length > 0) {
+    console.log(`Frutas: ${frutas.join(", ")}`);
+}
+if (laticinios.length > 0) {
+    console.log(`Laticínios: ${laticinios.join(", ")}`);
+}
+if (congelados.length > 0) {
+    console.log(`Congelados: ${congelados.join(", ")}`);
+}
+if (doces.length > 0) {
+    console.log(`Doces: ${doces.join(", ")}`);
+}
+if (outros.length > 0) {
+    console.log(`Outros: ${outros.join(", ")}`);
+}</code></pre>
+        </div>
+
+        <div class="app-section">
+            <h2>Lista de Compras Interativa</h2>
+            <div class="shopping-app">
+                <div class="app-controls">
+                    <div class="input-group">
+                        <label for="food-item">Item para adicionar:</label>
+                        <input type="text" id="food-item" placeholder="Digite o nome do item">
+                    </div>
+                    <div class="input-group">
+                        <label for="category">Categoria:</label>
+                        <select id="category">
+                            <option value="frutas">Frutas</option>
+                            <option value="laticinios">Laticínios</option>
+                            <option value="congelados">Congelados</option>
+                            <option value="doces">Doces</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button id="add-item" class="app-button">Adicionar Item</button>
+                        <button id="reset-list" class="app-button reset">Limpar Lista</button>
+                    </div>
+                </div>
+                <div class="shopping-list">
+                    <h3>Sua Lista de Compras</h3>
+                    <div id="list-container">
+                        <div class="empty-list">Sua lista está vazia. Adicione alguns itens!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido para o desafio 7DaysOfCode</p>
+    </div>
+
+    <a href="../index.html" class="home-button">Home</a>
+
+    <script>
+        // Elementos da página
+        const foodItemInput = document.getElementById('food-item');
+        const categorySelect = document.getElementById('category');
+        const addItemBtn = document.getElementById('add-item');
+        const resetListBtn = document.getElementById('reset-list');
+        const listContainer = document.getElementById('list-container');
+
+        // Lista de compras por categoria
+        let shoppingList = {
+            frutas: [],
+            laticinios: [],
+            congelados: [],
+            doces: [],
+            outros: []
+        };
+
+        // Adiciona item na lista
+        function addItem() {
+            const item = foodItemInput.value.trim();
+            const category = categorySelect.value;
+            
+            if (item === '') {
+                alert('Por favor, digite o nome do item.');
+                return;
+            }
+            
+            // Coloca o item na categoria certa
+            shoppingList[category].push(item);
+            
+            // Limpa o campo
+            foodItemInput.value = '';
+            foodItemInput.focus();
+            
+            // Mostra a lista atualizada
+            updateListDisplay();
+        }
+
+        // Atualiza a lista na tela
+        function updateListDisplay() {
+            // Vê se a lista tá vazia
+            const isEmpty = Object.values(shoppingList).every(arr => arr.length === 0);
+            
+            if (isEmpty) {
+                listContainer.innerHTML = '<div class="empty-list">Sua lista está vazia. Adicione alguns itens!</div>';
+                return;
+            }
+            
+            // Limpa tudo antes de mostrar
+            listContainer.innerHTML = '';
+            
+            // Nome bonitinho das categorias
+            const categories = {
+                frutas: 'Frutas',
+                laticinios: 'Laticínios',
+                congelados: 'Congelados',
+                doces: 'Doces',
+                outros: 'Outros'
+            };
+            
+            for (const [key, title] of Object.entries(categories)) {
+                if (shoppingList[key].length > 0) {
+                    // Cria o bloco da categoria
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category';
+                    
+                    // Coloca o título
+                    const categoryTitle = document.createElement('div');
+                    categoryTitle.className = 'category-title';
+                    categoryTitle.textContent = title;
+                    categoryDiv.appendChild(categoryTitle);
+                    
+                    // Lista os itens
+                    const itemsList = document.createElement('ul');
+                    itemsList.className = 'items-list';
+                    
+                    shoppingList[key].forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = item;
+                        itemsList.appendChild(listItem);
+                    });
+                    
+                    categoryDiv.appendChild(itemsList);
+                    listContainer.appendChild(categoryDiv);
+                }
+            }
+        }
+
+        // Limpa a lista toda
+        function resetList() {
+            if (confirm('Tem certeza que quer limpar toda a lista?')) {
+                // Zera todas as categorias
+                for (const key in shoppingList) {
+                    shoppingList[key] = [];
+                }
+                
+                // Atualiza a tela
+                updateListDisplay();
+            }
+        }
+
+        // Eventos dos botões
+        addItemBtn.addEventListener('click', addItem);
+        resetListBtn.addEventListener('click', resetList);
+        
+        foodItemInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addItem();
+            }
+        });
+
+        // Mostra a lista vazia no começo
+        updateListDisplay();
+    </script>
+</body>
+</html>

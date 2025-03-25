@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysOfCode - Day 04</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .code-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        pre {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        code {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            white-space: pre;
+            word-break: normal;
+        }
+
+        .game-section {
+            background: #1e1e1e;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .game-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .game-container {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .game-info {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .game-message {
+            margin-bottom: 1.5rem;
+            min-height: 60px;
+            font-size: 1.1rem;
+            color: #00ff88;
+        }
+
+        .input-container {
+            display: flex;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 4px 0 0 4px;
+            border: none;
+            background: #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .input-container button {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .game-button {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .game-button:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
+        }
+
+        .game-button.reset {
+            background: #ff5555;
+        }
+
+        .game-button.reset:hover {
+            background: #ff3333;
+        }
+
+        .game-stats {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .game-stats p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00ff88;
+            color: #111;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: #00cc6a;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.8rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .code-section, .game-section {
+                padding: 1rem;
+            }
+            
+            pre {
+                font-size: 0.8rem;
+                max-height: 300px;
+            }
+            
+            .game-button {
+                padding: 0.7rem 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .code-section h2, .game-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            pre {
+                font-size: 0.75rem;
+                padding: 0.8rem;
+                max-height: 250px;
+            }
+            
+            .input-container {
+                flex-direction: column;
+            }
+            
+            .input-container input {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .input-container button {
+                width: 100%;
+                border-radius: 4px;
+            }
+            
+            .game-button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7DaysOfCode - Day 04</h1>
+        
+        <div class="code-section">
+            <h2>Código</h2>
+            <pre><code>// Gera um número aleatório entre 0 e 10
+let numeroSecreto = Math.floor(Math.random() * 11);
+let tentativas = 3;
+let acertou = false;
+
+alert("Bem-vindo ao jogo de adivinhação! Você tem 3 tentativas para acertar o número entre 0 e 10.");
+
+while (tentativas > 0) {
+    let chute = parseInt(prompt("Tente adivinhar o número entre 0 e 10:"));
+    
+    if (chute === numeroSecreto) {
+        alert("Parabéns! Você acertou!");
+        acertou = true;
+        break; // Sai do loop se acertar
+    } else {
+        tentativas--;
+        if (tentativas > 0) {
+            let dica = chute < numeroSecreto ? "O número é maior!" : "O número é menor!";
+            alert(`Errado! ${dica} Você tem mais ${tentativas} tentativa(s).`);
+        } else {
+            alert(`Suas tentativas acabaram! O número era ${numeroSecreto}.`);
+        }
+    }
+}
+
+if (!acertou) {
+    alert("Que pena! Tente novamente em outra rodada.");
+}
+
+// Pergunta se o jogador quer jogar novamente
+let jogarNovamente = prompt("Quer jogar de novo? (s/n)").toLowerCase();
+
+while (jogarNovamente === "s") {
+    numeroSecreto = Math.floor(Math.random() * 11);
+    tentativas = 3;
+    acertou = false;
+
+    while (tentativas > 0) {
+        let chute = parseInt(prompt("Tente adivinhar o número entre 0 e 10:"));
+        
+        if (chute === numeroSecreto) {
+            alert("Parabéns! Você acertou!");
+            acertou = true;
+            break;
+        } else {
+            tentativas--;
+            if (tentativas > 0) {
+                let dica = chute < numeroSecreto ? "O número é maior!" : "O número é menor!";
+                alert(`Errado! ${dica} Você tem mais ${tentativas} tentativa(s).`);
+            } else {
+                alert(`Suas tentativas acabaram! O número era ${numeroSecreto}.`);
+            }
+        }
+    }
+
+    if (!acertou) {
+        alert("Que pena! Tente novamente em outra rodada.");
+    }
+
+    jogarNovamente = prompt("Quer jogar de novo? (s/n)").toLowerCase();
+}
+
+alert("Obrigado por jogar! Até a próxima.");</code></pre>
+        </div>
+
+        <div class="game-section">
+            <h2>Jogo de Adivinhação</h2>
+            <div class="game-container">
+                <div class="game-info">
+                    Tente adivinhar o número secreto entre 0 e 10.<br>
+                    Você tem <span id="tentativas-restantes">3</span> tentativas!
+                </div>
+                <div id="game-message" class="game-message">
+                    Bem-vindo ao jogo! Digite um número e tente sua sorte.
+                </div>
+                <div class="input-container">
+                    <input type="number" id="chute" min="0" max="10" placeholder="Digite um número (0-10)">
+                    <button id="enviar-chute">Enviar</button>
+                </div>
+                <div>
+                    <button id="novo-jogo" class="game-button">Novo Jogo</button>
+                    <button id="reiniciar" class="game-button reset" style="display: none;">Reiniciar</button>
+                </div>
+                <div class="game-stats">
+                    <p>Jogos iniciados: <span id="jogos-iniciados">0</span></p>
+                    <p>Vitórias: <span id="vitorias">0</span></p>
+                    <p>Derrotas: <span id="derrotas">0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido para o desafio 7DaysOfCode</p>
+    </div>
+
+    <a href="../index.html" class="home-button">Home</a>
+
+    <script>
+        // Pegando os elementos da página
+        const chuteInput = document.getElementById('chute');
+        const enviarChuteBtn = document.getElementById('enviar-chute');
+        const novoJogoBtn = document.getElementById('novo-jogo');
+        const reiniciarBtn = document.getElementById('reiniciar');
+        const gameMessage = document.getElementById('game-message');
+        const tentativasRestantes = document.getElementById('tentativas-restantes');
+        const jogosIniciados = document.getElementById('jogos-iniciados');
+        const vitorias = document.getElementById('vitorias');
+        const derrotas = document.getElementById('derrotas');
+
+        // Variáveis do jogo
+        let numeroSecreto;
+        let tentativas;
+        let jogoAtivo = false;
+        let estatisticas = {
+            jogosIniciados: 0,
+            vitorias: 0,
+            derrotas: 0
+        };
+
+        // Inicia um novo jogo
+        function iniciarNovoJogo() {
+            numeroSecreto = Math.floor(Math.random() * 11);
+            tentativas = 3;
+            jogoAtivo = true;
+            
+            // Ajusta a tela pro novo jogo
+            tentativasRestantes.textContent = tentativas;
+            gameMessage.textContent = "Jogo iniciado! Digite um número entre 0 e 10.";
+            gameMessage.style.color = "#00ff88";
+            chuteInput.value = "";
+            chuteInput.disabled = false;
+            enviarChuteBtn.disabled = false;
+            novoJogoBtn.style.display = "none";
+            reiniciarBtn.style.display = "inline-block";
+            
+            // Conta mais um jogo
+            estatisticas.jogosIniciados++;
+            jogosIniciados.textContent = estatisticas.jogosIniciados;
+            
+            console.log("Número secreto: " + numeroSecreto); // Só pra testar
+        }
+
+        // Checa se o chute tá certo
+        function verificarChute() {
+            if (!jogoAtivo) return;
+            
+            const chute = parseInt(chuteInput.value);
+            
+            // Vê se o número é válido
+            if (isNaN(chute) || chute < 0 || chute > 10) {
+                gameMessage.textContent = "Por favor, digite um número válido entre 0 e 10.";
+                gameMessage.style.color = "#ff5555";
+                return;
+            }
+            
+            // Confere o resultado
+            if (chute === numeroSecreto) {
+                // Acertou!
+                gameMessage.textContent = "Parabéns! Você acertou!";
+                gameMessage.style.color = "#00ff88";
+                finalizarJogo(true);
+            } else {
+                // Errou...
+                tentativas--;
+                tentativasRestantes.textContent = tentativas;
+                
+                if (tentativas > 0) {
+                    const dica = chute < numeroSecreto ? "O número é maior!" : "O número é menor!";
+                    gameMessage.textContent = `Errado! ${dica} Você tem mais ${tentativas} tentativa(s).`;
+                    gameMessage.style.color = "#ffaa00";
+                } else {
+                    gameMessage.textContent = `Suas tentativas acabaram! O número era ${numeroSecreto}.`;
+                    gameMessage.style.color = "#ff5555";
+                    finalizarJogo(false);
+                }
+            }
+            
+            chuteInput.value = "";
+            chuteInput.focus();
+        }
+
+        // Termina o jogo (vitória ou derrota)
+        function finalizarJogo(vitoria) {
+            jogoAtivo = false;
+            chuteInput.disabled = true;
+            enviarChuteBtn.disabled = true;
+            novoJogoBtn.style.display = "inline-block";
+            
+            if (vitoria) {
+                estatisticas.vitorias++;
+                vitorias.textContent = estatisticas.vitorias;
+            } else {
+                estatisticas.derrotas++;
+                derrotas.textContent = estatisticas.derrotas;
+            }
+        }
+
+        // Botões e eventos
+        novoJogoBtn.addEventListener('click', iniciarNovoJogo);
+        
+        reiniciarBtn.addEventListener('click', function() {
+            jogoAtivo = false;
+            gameMessage.textContent = "Jogo reiniciado. Clique em 'Novo Jogo' para começar.";
+            gameMessage.style.color = "#fff";
+            chuteInput.disabled = true;
+            enviarChuteBtn.disabled = true;
+            novoJogoBtn.style.display = "inline-block";
+            reiniciarBtn.style.display = "none";
+        });
+        
+        enviarChuteBtn.addEventListener('click', verificarChute);
+        
+        chuteInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verificarChute();
+            }
+        });
+
+        // Prepara a tela inicial
+        chuteInput.disabled = true;
+        enviarChuteBtn.disabled = true;
+    </script>
+</body>
+</html>

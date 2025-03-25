@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysOfCode - JavaScript</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #2d2d2d;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00ff88;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .day-card {
+            background-color: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .day-header {
+            background-color: #333;
+            padding: 1rem;
+            border-bottom: 2px solid #00ff88;
+        }
+
+        .day-title {
+            margin: 0;
+            color: #00ff88;
+            font-size: 1.5rem;
+        }
+
+        .day-subtitle {
+            margin: 0.5rem 0 0;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .day-content {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 60px; /* espaço para o botão */
+        }
+
+        .day-preview {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .day-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 1px solid #444;
+        }
+
+        .day-description {
+            color: #bbb;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .day-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background-color: #333;
+            color: #ccc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .tag.highlight {
+            background-color: #00ff88;
+            color: #111;
+        }
+
+        .day-button {
+            display: inline-block;
+            background-color: #00ff88;
+            color: #111;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 120px;
+        }
+
+        .day-button:hover {
+            background-color: #00cc6a;
+        }
+
+        .section-title {
+            color: #00ff88;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #00ff88;
+            border-radius: 3px;
+        }
+
+        footer {
+            background: #2d2d2d;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .github-link {
+            color: #00ff88;
+            text-decoration: none;
+            margin-left: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .github-link:hover {
+            color: #00cc6a;
+            text-decoration: underline;
+        }
+
+        .github-link i {
+            margin-right: 0.3rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #00ff88;
+            color: #1a1a1a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #00cc6a;
+            transform: translateY(-5px);
+        }
+
+        /* midia queries */
+        @media (max-width: 768px) {
+            .days-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .day-title {
+                font-size: 1.2rem;
+            }
+            
+            .day-preview {
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem 0.8rem;
+            }
+            
+            header {
+                padding: 2rem 0.8rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .days-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .day-preview {
+                height: 130px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>7DaysOfCode - JavaScript</h1>
+            <p class="subtitle">Sete desafios práticos para aprimorar as habilidades em JavaScript, desde manipulação de variáveis até criação de aplicações interativas.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Os 7 Desafios</h2>
+        
+        <div class="days-grid">
+            <!-- Day 01 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 01</h3>
+                    <p class="day-subtitle">Variáveis e Operadores</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview1.jpg" alt="Preview do Dia 01">
+                    </div>
+                    <p class="day-description">Trabalhando com variáveis e operações básicas em JavaScript para manipular e comparar valores.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Variáveis</span>
+                        <span class="tag">Operadores</span>
+                    </div>
+                    <a href="Day01/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 02 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 02</h3>
+                    <p class="day-subtitle">Condicionais</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview2.jpg" alt="Preview do Dia 02">
+                    </div>
+                    <p class="day-description">Utilizando estruturas condicionais para criar lógicas de decisão em JavaScript.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Condicionais</span>
+                        <span class="tag">if/else</span>
+                    </div>
+                    <a href="Day02/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 03 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 03</h3>
+                    <p class="day-subtitle">Jogo de Comparação</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview3.jpg" alt="Preview do Dia 03">
+                    </div>
+                    <p class="day-description">Criando um jogo interativo de comparação de números utilizando loops e condicionais.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Loops</span>
+                        <span class="tag">Interatividade</span>
+                    </div>
+                    <a href="Day03/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 04 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 04</h3>
+                    <p class="day-subtitle">Jogo de Adivinhação</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview4.jpg" alt="Preview do Dia 04">
+                    </div>
+                    <p class="day-description">Desenvolvendo um jogo onde o usuário tenta adivinhar um número aleatório gerado pelo computador.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Números Aleatórios</span>
+                        <span class="tag">Loops</span>
+                    </div>
+                    <a href="Day04/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 05 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 05</h3>
+                    <p class="day-subtitle">Lista de Compras</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview5.jpg" alt="Preview do Dia 05">
+                    </div>
+                    <p class="day-description">Criando uma aplicação de lista de compras com categorização de itens utilizando arrays.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Arrays</span>
+                        <span class="tag">Categorização</span>
+                    </div>
+                    <a href="Day05/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 06 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 06</h3>
+                    <p class="day-subtitle">Lista de Compras Avançada</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview6.jpg" alt="Preview do Dia 06">
+                    </div>
+                    <p class="day-description">Aprimorando a lista de compras com funcionalidades de adição e remoção de itens.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Manipulação de Arrays</span>
+                        <span class="tag">CRUD</span>
+                    </div>
+                    <a href="Day06/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+            
+            <!-- Day 07 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <h3 class="day-title">Dia 07</h3>
+                    <p class="day-subtitle">Calculadora</p>
+                </div>
+                <div class="day-content">
+                    <div class="day-preview">
+                        <img src="assests/preview7.jpg" alt="Preview do Dia 07">
+                    </div>
+                    <p class="day-description">Desenvolvendo uma calculadora funcional com operações matemáticas básicas utilizando funções.</p>
+                    <div class="day-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag highlight">Funções</span>
+                        <span class="tag">Operações Matemáticas</span>
+                    </div>
+                    <a href="Day07/index.html" class="day-button">Ver Projeto</a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <h2 class="section-title">Sobre o Projeto</h2>
+            <p style="max-width: 800px; margin: 0 auto; line-height: 1.6; margin-bottom: 2rem;">
+                O 7DaysOfCode é um desafio que propõe sete dias de prática intensiva em JavaScript, 
+                abordando conceitos fundamentais e avançados através de projetos práticos. 
+                Cada dia apresenta um novo desafio que constrói sobre as habilidades adquiridas anteriormente, 
+                culminando em aplicações interativas e funcionais.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Projeto 7DaysOfCode desenvolvido para aprimorar habilidades em JavaScript.
+            </p>
+            <p class="footer-text">
+                &copy; 2025 - Todos os direitos reservados - Rodrigo Silva <a href="https://github.com/rsprogrammerbr" target="_blank" class="github-link"><i class="fab fa-github"></i> GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top">↑</a>
+
+    <script>
+        // Funcionalidade do botão voltar ao topo
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Substitui imagens de espaço reservado por capturas de tela, se disponíveis
+        function loadActualPreviews() {}
+        // Chama a função quando a página carrega
+        window.addEventListener('load', loadActualPreviews);
+    </script>
+</body>
+</html>
