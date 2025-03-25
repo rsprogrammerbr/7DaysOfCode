@@ -121,6 +121,9 @@ Este projeto foi desenvolvido com um tema escuro moderno e elegante, utilizando 
 ## 📱 Responsividade
 
 Todas as páginas do projeto foram desenvolvidas com design responsivo, adaptando-se a diferentes tamanhos de tela e dispositivos.
+***
+![image](https://github.com/user-attachments/assets/d1188b1a-f854-4a7b-9242-d61b23526d1e)
+
 
 ## 🔗 Navegação
 
